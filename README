@@ -1,0 +1,2 @@
+Launch the application in a terminal :
+$ java -cp target/classes:"target/dependency/*" com.agile.spirit.openapi.Main
