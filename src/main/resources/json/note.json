@@ -1,0 +1,5 @@
+{
+  ownerId: "12345",
+  title: "Hello Jersey...",
+  content: "... It works !"
+}
