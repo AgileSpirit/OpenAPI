@@ -1,2 +1,33 @@
 Launch the application in a terminal :
 $ java -cp target/classes:"target/dependency/*" com.agile.spirit.openapi.Main
+
+h3. Définition d'une Note
+
+AttributTypeDescription
+note_id Integer Identifiant unique 
+user_id Integer Référence de l'auteur 
+title String Titre de la note 
+content String Contenu de la note 
+creation_date Datetime Date de création
+modification_date Datetime Date de dernière mise à jour 
+
+Exemple d'une Note au format JSON :
+
+{
+  "note_id" : 12345,
+  "user_id" : 67890,
+  "title" : "Titre de ma note",
+  "content" : "Contenu de ma note",
+  "creation_date" : 1361715327,
+  "modification_date" : 1361819642
+}
+
+h3. Définition de l'API
+
+ServiceVerbeDescription
+notes/ GET Récupérer la liste des notes de l'utilisateur  
+notes/search/{pattern} GET Récupérer les notes de l'utilisateur dont le titre ou le contenu correspondent à l'expression 
+notes/details/{noteId} GET Récupérer le détail d'une note 
+notes POST Ajouter une note 
+notes PUT Mettre à jour une note 
+notes/{noteId} DELETE Supprimer une note 
