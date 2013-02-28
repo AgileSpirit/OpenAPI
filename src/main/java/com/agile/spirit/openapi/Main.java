@@ -37,7 +37,7 @@ public class Main {
     }
 
     private static URI getBaseURI() {
-        return UriBuilder.fromUri("http://localhost/").port(getPort(9998)).build();
+        return UriBuilder.fromUri("http://openapi.herokuapp.com/").port(getPort(9998)).build();
     }
 
     public static final URI BASE_URI = getBaseURI();
