@@ -27,8 +27,7 @@ import org.joda.time.DateTime;
 @Entity
 // 2.
 @Table(name = "NOTES")
-@NamedQueries({
-        @NamedQuery(name = "list", query = "from Note"),
+@NamedQueries({ @NamedQuery(name = "list", query = "from Note"),
         @NamedQuery(name = "find", query = "from Note where title like :pattern or content like :pattern") })
 public class Note {
 
@@ -117,8 +116,8 @@ public class Note {
     }
 
     public static List<Note> find(String pattern, EntityManager em) {
-        List<Note> notes = em.createNamedQuery("find", Note.class)
-                .setParameter("pattern", "%" + pattern + "%").getResultList();
+        List<Note> notes = em.createNamedQuery("find", Note.class).setParameter("pattern", "%" + pattern + "%")
+                .getResultList();
         return notes;
     }
 
@@ -127,21 +126,19 @@ public class Note {
     }
 
     public static Note save(Note note, EntityManager em) {
-        if (note != null) {
-            EntityTransaction tx = em.getTransaction();
-            tx.begin();
-            try {
-                if (note.getNoteId() == null) {
-                    note.setCreationDate(new DateTime());
-                    em.persist(note);
-                } else {
-                    note.setModificationDate(new DateTime());
-                    note = em.merge(note);
-                }
-                tx.commit();
-            } catch (Exception e) {
-                tx.rollback();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        try {
+            if (note.getNoteId() == null) {
+                note.setCreationDate(new DateTime());
+                em.persist(note);
+            } else {
+                note.setModificationDate(new DateTime());
+                note = em.merge(note);
             }
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
         }
         return note;
     }

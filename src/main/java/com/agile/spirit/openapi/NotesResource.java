@@ -62,9 +62,11 @@ public class NotesResource {
     // @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createNote(Note note) {
-        Note persisted = Note.save(note, em);
-        if (persisted != null) {
-            return Response.ok(persisted).build();
+        if (note != null) {
+            Note persisted = Note.save(note, em);
+            if (persisted != null) {
+                return Response.ok(persisted).build();
+            }
         }
         System.err.println("note is null !");
         return Response.status(Status.INTERNAL_SERVER_ERROR).build();
@@ -74,10 +76,13 @@ public class NotesResource {
     // @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateNote(Note note) {
-        Note merged = Note.save(note, em);
-        if (merged != null) {
-            return Response.ok(merged).build();
+        if (note != null) {
+            Note merged = Note.save(note, em);
+            if (merged != null) {
+                return Response.ok(merged).build();
+            }
         }
+        System.err.println("note is null !");
         return Response.status(Status.INTERNAL_SERVER_ERROR).build();
     }
 
