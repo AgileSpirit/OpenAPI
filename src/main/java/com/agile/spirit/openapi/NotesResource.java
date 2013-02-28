@@ -58,8 +58,6 @@ public class NotesResource {
     }
 
     @POST
-    @Path("/")
-    // @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createNote(Note note) {
         if (note != null) {
@@ -73,7 +71,6 @@ public class NotesResource {
     }
 
     @PUT
-    // @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateNote(Note note) {
         if (note != null) {

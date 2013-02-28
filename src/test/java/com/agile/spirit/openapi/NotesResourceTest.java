@@ -41,15 +41,14 @@ public class NotesResourceTest extends JerseyTest {
 
     @Test
     public void testGetNoteById() {
-        DateTime fixedDate = new DateTime(2013, DateTimeConstants.FEBRUARY, 26,
-                0, 0);
+        DateTime fixedDate = new DateTime(2013, DateTimeConstants.FEBRUARY, 26, 0, 0);
         DateTimeUtils.setCurrentMillisFixed(fixedDate.getMillis());
 
         Note.save(NoteFactory.createNote(1234, "title", "content"), em);
 
         WebResource webResource = resource().path("notes/" + 1);
 
-        String expected = "{\"content\":\"content\",\"creationDate\":\"2013-02-26T00:00:00.000+01:00\",\"noteId\":\"1\",\"ownerId\":\"1234\",\"title\":\"title\"}";
+        String expected = "{\"content\":\"content\",\"creationDate\":\"26-02-2013 12:00:00\",\"noteId\":\"1\",\"ownerId\":\"1234\",\"title\":\"title\"}";
         String actual = webResource.get(String.class);
         Assert.assertEquals(expected, actual);
     }
@@ -68,12 +67,15 @@ public class NotesResourceTest extends JerseyTest {
 
     @Test
     public void testUpdateNote() {
-        Note.save(NoteFactory.createNote(1234, "title", "content"), em);
+        Note managed = Note.save(NoteFactory.createNote(1234, "title", "content"), em);
         List<Note> notes = Note.list(em);
         Assert.assertEquals(1, notes.size());
 
+        managed.setTitle("updated title");
+        managed.setContent("updated content");
+
         WebResource webResource = resource().path("notes");
-        webResource.put(NoteFactory.createNote(1, 1234, "title", "content"));
+        webResource.put(managed);
 
         notes = Note.list(em);
         Assert.assertEquals(1, notes.size());
