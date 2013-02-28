@@ -1,6 +1,8 @@
 Launch the application in a terminal :
 $ java -cp target/classes:"target/dependency/*" com.agile.spirit.openapi.Main
 
+[ ![Codeship Status for AgileSpirit/OpenAPI](https://www.codeship.io/projects/d3359890-63e4-0130-1b29-123138194f54/status?branch=master)](https://www.codeship.io/projects/1694)
+
 h3. Définition d'une Note
 
 AttributTypeDescription

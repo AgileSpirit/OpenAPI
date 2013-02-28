@@ -112,7 +112,7 @@
                     <mainClass>com.octo.openapi.Main</mainClass>
                 </configuration>
             </plugin>
-            <!-- DEPENDENCY-PLUGIN is required for Heroku for embedding dependencies -->
+            <!-- DEPENDENCY-PLUGIN is required for Heroku for embedding dependencies... -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -126,6 +126,31 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <!-- ... but it is incompatible with M2E Eclipse Plugin, so it is disable only in this case -->
+            <plugin>
+                <groupId>org.eclipse.m2e</groupId>
+                <artifactId>lifecycle-mapping</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <lifecycleMappingMetadata>
+                        <pluginExecutions>
+                            <pluginExecution>
+                                <pluginExecutionFilter>
+                                    <groupId>org.apache.maven.plugins</groupId>
+                                    <artifactId>maven-dependency-plugin</artifactId>
+                                    <versionRange>[1.0.0,)</versionRange>
+                                    <goals>
+                                        <goal>copy-dependencies</goal>
+                                    </goals>
+                                </pluginExecutionFilter>
+                                <action>
+                                    <ignore />
+                                </action>
+                            </pluginExecution>
+                        </pluginExecutions>
+                    </lifecycleMappingMetadata>
+                </configuration>
             </plugin>
         </plugins>
     </build>
