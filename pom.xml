@@ -113,7 +113,7 @@
                 </configuration>
             </plugin>
             <!-- DEPENDENCY-PLUGIN is required for Heroku for embedding dependencies... -->
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>2.4</version>
@@ -127,7 +127,9 @@
                     </execution>
                 </executions>
             </plugin>
+            -->
             <!-- ... but it is incompatible with M2E Eclipse Plugin, so it is disable only in this case -->
+            <!--
             <plugin>
                 <groupId>org.eclipse.m2e</groupId>
                 <artifactId>lifecycle-mapping</artifactId>
@@ -152,6 +154,7 @@
                     </lifecycleMappingMetadata>
                 </configuration>
             </plugin>
+            -->
         </plugins>
     </build>
 
