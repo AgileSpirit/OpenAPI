@@ -16,9 +16,8 @@ import com.sun.jersey.api.core.ResourceConfig;
 
 public class Main {
 
-    private static EntityManager em;
-
     private static void addNotes() {
+        EntityManager em = PersistenceUtil.getEntityManager();
         List<Note> notes = NoteFactory.createListOfNotes(10);
         for (Note note : notes) {
             Note.save(note, em);
@@ -38,7 +37,7 @@ public class Main {
     //
     // private static URI getBaseURI() {
     // return
-    // UriBuilder.fromUri("http://openapi.herokuapp.com/").port(getPort(9998)).build();
+    // UriBuilder.fromUri("http://localhost/").port(getPort(9998)).build();
     // }
     //
     // public static final URI BASE_URI = getBaseURI();
@@ -64,7 +63,7 @@ public class Main {
     //
     // PersistenceUtil.closeEntityManagerFactory();
     // }
-
+    //
     private static URI getBaseURI(String hostname, int port) {
         return UriBuilder.fromUri("http://0.0.0.0/").port(port).build();
     }
