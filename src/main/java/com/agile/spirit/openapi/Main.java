@@ -75,6 +75,8 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
+        addNotes();
+
         URI uri = getBaseURI(System.getenv("HOSTNAME"), Integer.valueOf(System.getenv("PORT")));
         HttpServer httpServer = startServer(uri);
         System.out.println(String.format("Jersey app started with WADL available at "
