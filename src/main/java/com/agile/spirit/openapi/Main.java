@@ -44,9 +44,11 @@ public class Main {
         }
         System.out.println("HOSTNAME = " + hostname);
 
+        boolean isOnLocal = false;
         String port = System.getenv("PORT");
         System.out.println("PORT = " + port);
         if (port == null) {
+            isOnLocal = true;
             port = "9998";
         }
 
@@ -56,8 +58,15 @@ public class Main {
         HttpServer httpServer = startServer(uri);
         System.out.println(String.format("Jersey app started with WADL available at "
                 + "%sapplication.wadl\nHit enter to stop it...", uri, uri));
-        System.in.read();
-        httpServer.stop();
-        PersistenceUtil.closeEntityManagerFactory();
+        if (isOnLocal) {
+            System.in.read();
+            httpServer.stop();
+            PersistenceUtil.closeEntityManagerFactory();
+        } else {
+            while (true) {
+                System.in.read();
+            }
+        }
+
     }
 }
