@@ -9,12 +9,21 @@ import javax.ws.rs.core.UriBuilder;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 
+import com.agile.spirit.openapi.events.EventStore;
+import com.agile.spirit.openapi.events.LoggingEventHandler;
 import com.agile.spirit.openapi.utils.PersistenceUtil;
+import com.google.common.eventbus.EventBus;
 import com.sun.jersey.api.container.grizzly2.GrizzlyServerFactory;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.api.core.ResourceConfig;
 
 public class Main {
+
+    private static void initializeEventStore() {
+        EventBus eventBus = EventStore.getEventBus();
+        LoggingEventHandler eventHandler = new LoggingEventHandler();
+        eventBus.register(eventHandler);
+    }
 
     private static void addNotes() {
         EntityManager em = PersistenceUtil.getEntityManager();
@@ -35,6 +44,8 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
+        initializeEventStore();
+
         PersistenceUtil.createEntityManagerFactory();
         addNotes();
 

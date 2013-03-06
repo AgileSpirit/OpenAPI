@@ -9,6 +9,8 @@
     <name>OpenAPI</name>
 
     <properties>
+        <downloadSources>true</downloadSources>
+        <downloadJavadocs>true</downloadJavadocs> 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <junit.version>4.8.2</junit.version>
@@ -18,9 +20,10 @@
         <hibernate.version>4.1.9.Final</hibernate.version>
         <!-- <h2.version>1.1.102</h2.version> -->
         <hsqldb.version>2.2.9</hsqldb.version>
-        <guice.version>3.0</guice.version>
+        <!-- <guice.version>3.0</guice.version> -->
         <grizzly.version>1.9.56</grizzly.version>
-        <slf4j.version>1.7.2</slf4j.version>
+        <!-- <slf4j.version>1.7.2</slf4j.version> -->
+        <guava.version>12.0</guava.version>        
     </properties>
 
     <dependencies>
@@ -108,6 +111,12 @@
             <version>${slf4j.version}</version>
         </dependency>
         -->
+        <!-- GUAVA -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>OpenAPI</finalName>

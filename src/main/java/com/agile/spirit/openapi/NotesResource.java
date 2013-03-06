@@ -15,6 +15,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.agile.spirit.openapi.events.EventStore;
+import com.agile.spirit.openapi.events.LoggingEvent;
 import com.agile.spirit.openapi.utils.PersistenceUtil;
 
 /*
@@ -30,6 +32,9 @@ public class NotesResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response listNotes() {
+        // Guava Domain Event in action ^^
+        EventStore.getEventBus().post(new LoggingEvent("List notes"));
+
         List<Note> notes = Note.list(em);
         GenericEntity<List<Note>> entity = new GenericEntity<List<Note>>(notes) {
         };
@@ -40,6 +45,9 @@ public class NotesResource {
     @Path("/search/{pattern}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response listNotes(@PathParam("pattern") String pattern) {
+        // Guava Domain Event in action ^^
+        EventStore.getEventBus().post(new LoggingEvent("Search notes with pattern " + pattern));
+
         List<Note> notes = Note.find(pattern, em);
         GenericEntity<List<Note>> entity = new GenericEntity<List<Note>>(notes) {
         };
@@ -50,6 +58,9 @@ public class NotesResource {
     @Path("/{noteId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getNote(@PathParam("noteId") Integer noteId) {
+        // Guava Domain Event in action ^^
+        EventStore.getEventBus().post(new LoggingEvent("Get note with id " + noteId));
+
         if (noteId != null) {
             Note note = Note.get(noteId, em);
             return Response.ok(note).build();
