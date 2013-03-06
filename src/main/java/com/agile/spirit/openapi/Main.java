@@ -24,46 +24,6 @@ public class Main {
         }
     }
 
-    // private static int getPort(int defaultPort) {
-    // String port = System.getProperty("jersey.test.port");
-    // if (null != port) {
-    // try {
-    // return Integer.parseInt(port);
-    // } catch (NumberFormatException e) {
-    // }
-    // }
-    // return defaultPort;
-    // }
-    //
-    // private static URI getBaseURI() {
-    // return
-    // UriBuilder.fromUri("http://localhost/").port(getPort(9998)).build();
-    // }
-    //
-    // public static final URI BASE_URI = getBaseURI();
-    //
-    // protected static HttpServer startServer() throws IOException {
-    // System.out.println("Starting grizzly...");
-    // ResourceConfig rc = new
-    // PackagesResourceConfig("com.agile.spirit.openapi");
-    // return GrizzlyServerFactory.createHttpServer(BASE_URI, rc);
-    // }
-    //
-    // public static void main(String[] args) throws IOException {
-    // PersistenceUtil.createEntityManagerFactory();
-    // em = PersistenceUtil.getEntityManager();
-    //
-    // addNotes();
-    //
-    // HttpServer httpServer = startServer();
-    // System.out.println(String.format("Jersey app started with WADL available at "
-    // + "%sapplication.wadl\nHit enter to stop it...", BASE_URI, BASE_URI));
-    // System.in.read();
-    // httpServer.stop();
-    //
-    // PersistenceUtil.closeEntityManagerFactory();
-    // }
-    //
     private static URI getBaseURI(String hostname, int port) {
         return UriBuilder.fromUri("http://0.0.0.0/").port(port).build();
     }
@@ -78,12 +38,26 @@ public class Main {
         PersistenceUtil.createEntityManagerFactory();
         addNotes();
 
-        URI uri = getBaseURI(System.getenv("HOSTNAME"), Integer.valueOf(System.getenv("PORT")));
+        String hostname = System.getenv("HOSTNAME");
+        if (hostname == null) {
+            hostname = "localhost";
+        }
+        System.out.println("HOSTNAME = " + hostname);
+
+        String port = System.getenv("PORT");
+        System.out.println("PORT = " + port);
+        if (port == null) {
+            port = "9998";
+        }
+
+        URI uri = getBaseURI(hostname, Integer.valueOf(port));
+        System.out.println("URI = " + uri);
+
         HttpServer httpServer = startServer(uri);
         System.out.println(String.format("Jersey app started with WADL available at "
                 + "%sapplication.wadl\nHit enter to stop it...", uri, uri));
-        while (true) {
-            System.in.read();
-        }
+        System.in.read();
+        httpServer.stop();
+        PersistenceUtil.closeEntityManagerFactory();
     }
 }

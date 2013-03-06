@@ -9,6 +9,8 @@
     <name>OpenAPI</name>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <junit.version>4.8.2</junit.version>
         <jersey.version>1.17</jersey.version>
         <joda-time.version>2.1</joda-time.version>
@@ -152,6 +154,7 @@
             </plugin>
             <!-- ... but it is incompatible with M2E Eclipse Plugin, so it is disable 
                 only in this case -->
+            <!-- 
             <plugin>
                 <groupId>org.eclipse.m2e</groupId>
                 <artifactId>lifecycle-mapping</artifactId>
@@ -176,6 +179,7 @@
                     </lifecycleMappingMetadata>
                 </configuration>
             </plugin>
+             -->
         </plugins>
     </build>
 
