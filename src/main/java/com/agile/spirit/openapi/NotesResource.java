@@ -1,5 +1,8 @@
 package com.agile.spirit.openapi;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,13 +13,17 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.StreamingOutput;
 
 import com.agile.spirit.openapi.events.EventStore;
 import com.agile.spirit.openapi.events.LoggingEvent;
+import com.agile.spirit.openapi.itextpdf.PdfGenerator;
 import com.agile.spirit.openapi.utils.PersistenceUtil;
 
 /*
@@ -39,6 +46,26 @@ public class NotesResource {
         GenericEntity<List<Note>> entity = new GenericEntity<List<Note>>(notes) {
         };
         return Response.ok(entity).build();
+    }
+
+    @GET
+    @Path("/export")
+    @Produces({ MediaType.APPLICATION_OCTET_STREAM })
+    public Response exportNotesAsPdf() {
+        // Guava Domain Event in action ^^
+        EventStore.getEventBus().post(new LoggingEvent("Export notes as PDF"));
+
+        final List<Note> notes = Note.list(em);
+        StreamingOutput data = new StreamingOutput() {
+            @Override
+            public void write(OutputStream output) throws IOException, WebApplicationException {
+                ByteArrayOutputStream pdfFile = PdfGenerator.generateNotesExport(notes);
+                output.write(pdfFile.toByteArray());
+            }
+        };
+        ResponseBuilder response = Response.ok(data);
+        response.header("Content-Disposition", "attachment; filename=notes-export.pdf");
+        return response.build();
     }
 
     @GET
