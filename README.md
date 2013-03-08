@@ -25,11 +25,11 @@ Exemple d'une Note au format JSON :
 ## Définition de l'API
 
 <table>
-  <th>
+  <tr>
     <td>Service</td>
     <td>Verb</td>
     <td>Description</td>
-  </th>
+  </tr>
   <tr>
     <td>notes/</td>
     <td>GET</td>
