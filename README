@@ -3,7 +3,8 @@ $ java -cp target/classes:"target/dependency/*" com.agile.spirit.openapi.Main
 
 [ ![Codeship Status for AgileSpirit/OpenAPI](https://www.codeship.io/projects/d3359890-63e4-0130-1b29-123138194f54/status?branch=master)](https://www.codeship.io/projects/1694)
 
-h3. Définition d'une Note
+Définition d'une Note
+=====================
 
 AttributTypeDescription
 note_id Integer Identifiant unique 
@@ -24,12 +25,47 @@ Exemple d'une Note au format JSON :
   "modification_date" : 1361819642
 }
 
-h3. Définition de l'API
+Définition de l'API
+===================
 
-ServiceVerbeDescription
-notes/ GET Récupérer la liste des notes de l'utilisateur  
-notes/search/{pattern} GET Récupérer les notes de l'utilisateur dont le titre ou le contenu correspondent à l'expression 
-notes/details/{noteId} GET Récupérer le détail d'une note 
-notes POST Ajouter une note 
-notes PUT Mettre à jour une note 
-notes/{noteId} DELETE Supprimer une note 
+<table>
+  <th>
+    <td>Service</td>
+    <td>Verb</td>
+    <td>Description</td>
+  </th>
+  <tr>
+    <td>notes/</td>
+    <td>GET</td>
+    <td>Récupérer la liste des notes de l'utilisateur</td>
+  </tr>
+  <tr>
+    <td>notes/export/</td>
+    <td>GET</td>
+    <td>Exporter la liste des notes de l'utilisateur au format PDF</td>
+  </tr>
+  <tr>
+    <td>notes/search/{pattern}</td>
+    <td>GET</td>
+    <td>Récupérer les notes de l'utilisateur dont le titre ou le contenu correspondent à l'expression</td>
+  </tr>
+  <tr>
+    <td>notes/details/{noteId}</td>
+    <td>GET</td>
+    <td>Récupérer le détail d'une note</td>
+  </tr>
+  <tr>
+    <td>notes</td>
+    <td>POST</td>
+    <td>Ajouter une note</td>
+  </tr>
+  <tr>
+    <td>notes</td>
+    <td>PUT</td>
+    <td>Mettre à jour une note</td>
+  </tr>
+  <tr>
+    <td>notes/{noteId}</td>
+    <td>DELETE</td>
+    <td>Supprimer une note</td>
+  </tr>
