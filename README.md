@@ -15,8 +15,6 @@ Si tout s'est bien passé, la console affiche :
 <pre><code>Jersey app started with WADL available at http://0.0.0.0:9998/application.wadl
 Hit enter to stop it...</code></pre>
 
-Pour arrêter l'application, dans la console Eclipse ou dans le terminal, presser la touche "Entrée"
-
 ### En ligne de commande
 
 1. Compiler et packager l'application
@@ -29,15 +27,47 @@ Si tout s'est bien passé, le terminal affiche :
 <pre><code>Jersey app started with WADL available at http://0.0.0.0:9998/application.wadl
 Hit enter to stop it...</code></pre>
 
+Pour arrêter l'application, dans la console Eclipse ou dans le terminal, presser la touche "Entrée"
+
 ## Définition d'une Note
 
-AttributTypeDescription
-note_id Integer Identifiant unique 
-user_id Integer Référence de l'auteur 
-title String Titre de la note 
-content String Contenu de la note 
-creation_date Datetime Date de création
-modification_date Datetime Date de dernière mise à jour 
+<table>
+  <tr>
+    <td><b>Attribut</b></td>
+    <td><b>Type</b></td>
+    <td><b>Description</b></td>
+  </tr>
+  <tr>
+    <td>note_id/</td>
+    <td>Integer</td>
+    <td>Identifiant unique</td>
+  </tr>
+  <tr>
+    <td>user_id</td>
+    <td>Integer</td>
+    <td>Référence de l'auteur</td>
+  </tr>
+  <tr>
+    <td>title</td>
+    <td>String</td>
+    <td>Titre de la note</td>
+  </tr>
+  <tr>
+    <td>content</td>
+    <td>String</td>
+    <td>Contenu de la note</td>
+  </tr>
+  <tr>
+    <td>creation_date</td>
+    <td>Datetime</td>
+    <td>Date de création</td>
+  </tr>
+  <tr>
+    <td>modification_date</td>
+    <td>Datetime</td>
+    <td>Date de dernière mise à jour</td>
+  </tr>
+</table>
 
 Exemple d'une Note au format JSON :
 
