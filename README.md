@@ -1,5 +1,5 @@
 Launch the application in a terminal :
-> $ java -cp target/classes:"target/dependency/*" com.agile.spirit.openapi.Main
+<pre><code>$ java -cp target/classes:"target/dependency/*" com.agile.spirit.openapi.Main</code></pre>
 
 ## Définition d'une Note
 
@@ -13,22 +13,24 @@ modification_date Datetime Date de dernière mise à jour
 
 Exemple d'une Note au format JSON :
 
-> {
->   "note_id" : 12345,
->   "user_id" : 67890,
->   "title" : "Titre de ma note",
->   "content" : "Contenu de ma note",
->   "creation_date" : 1361715327,
->   "modification_date" : 1361819642
-> }
+<pre><code>
+{
+  "note_id" : 12345,
+  "user_id" : 67890,
+  "title" : "Titre de ma note",
+  "content" : "Contenu de ma note",
+  "creation_date" : 1361715327,
+  "modification_date" : 1361819642
+}
+</code></pre>
 
 ## Définition de l'API
 
 <table>
   <tr>
-    <td>Service</td>
-    <td>Verb</td>
-    <td>Description</td>
+    <td>*Service*</td>
+    <td>*Verb*</td>
+    <td>*Description*</td>
   </tr>
   <tr>
     <td>notes/</td>
