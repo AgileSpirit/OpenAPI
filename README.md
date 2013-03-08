@@ -65,3 +65,4 @@ Exemple d'une Note au format JSON :
     <td>DELETE</td>
     <td>Supprimer une note</td>
   </tr>
+</table>
