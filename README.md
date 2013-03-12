@@ -124,3 +124,30 @@ Exemple d'une Note au format JSON :
     <td>Supprimer une note</td>
   </tr>
 </table>
+
+## Exemple en ligne
+
+Une version de démonstration est accessible en ligne, sur Heroku : http://openapi.herokuapp.com/notes
+
+## Exemple d'appel JQuery
+
+<pre><code>function loadNotes() {
+  $.ajax({
+    type: 'GET',
+    url: 'http://openapi.herokuapp.com/notes',
+    success: function(data) {
+      renderNotes(data);
+    }
+  });  
+}
+
+function renderNotes(data) {
+  // JAX-RS serializes an empty list as null, and a 'collection of one' as an object (not an 'array of one')
+  var list = (data == null || data.note == null) ? [] : (data.note instanceof Array ? data.note : [data.note]);
+
+  $('#noteList .note').remove();
+  
+  $.each(list, function(index, note) {
+    // TEMPLATE, FORMAT AND DISPLAY NOTE
+  }
+}</code></pre>
