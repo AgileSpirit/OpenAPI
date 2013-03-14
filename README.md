@@ -1,3 +1,10 @@
+## Pré-requis
+
+Les programmes suivant doivent être installés et opérationnels :
+
+1. Java JDK 1.7
+2. Maven 3.0
+
 ## Configurer et lancer l'application
 
 ### Dans Eclipse
@@ -11,19 +18,15 @@ OpenAPI est approuvée pour Eclipse > 4.2.1.
 3. Exécuter la classe Main.java
 <pre><code>Menu contextuel -> "Run As" -> "Java Application"</code></pre>
 
-Si tout s'est bien passé, la console affiche :
-<pre><code>Jersey app started with WADL available at http://0.0.0.0:9998/application.wadl
-Hit enter to stop it...</code></pre>
-
 ### En ligne de commande
 
-1. Compiler et packager l'application
-<pre><code>$ mvn install</code></pre>
+<pre><code>$ mvn clean package ; java -cp target/classes:"target/dependency/*" com.agile.spirit.openapi.Main</code></pre>
 
-2. Lancer l'application
-<pre><code>$ java -cp target/classes:"target/dependency/*" com.agile.spirit.openapi.Main</code></pre>
+### Avec Maven
 
-Si tout s'est bien passé, le terminal affiche :
+<pre><code>$ mvn clean compile exec:java</code></pre>
+
+Quelque soit la méthode, si tout s'est bien passé, la console / le terminal affiche :
 <pre><code>Jersey app started with WADL available at http://0.0.0.0:9998/application.wadl
 Hit enter to stop it...</code></pre>
 
