@@ -92,14 +92,19 @@ Exemple d'une Note au format JSON :
     <td><b>Description</b></td>
   </tr>
   <tr>
-    <td>notes/</td>
+    <td>notes?:owner_id</td>
     <td>GET</td>
     <td>Récupérer la liste des notes de l'utilisateur</td>
   </tr>
   <tr>
-    <td>notes/export/</td>
+    <td>notes/all/</td>
     <td>GET</td>
-    <td>Exporter la liste des notes de l'utilisateur au format PDF</td>
+    <td>Récupérer la liste de toutes les notes</td>
+  </tr>
+  <tr>
+    <td>notes/all/export/</td>
+    <td>GET</td>
+    <td>Exporter la liste de toutes les notes au format PDF</td>
   </tr>
   <tr>
     <td>notes/search/{pattern}</td>

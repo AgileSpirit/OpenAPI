@@ -5,15 +5,13 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
-
 public class NoteFactory {
 
     public static Note createNote(Integer ownerId, String title, String content) {
         return createNote(null, ownerId, title, content);
     }
 
-    public static Note createNote(Integer noteId, Integer ownerId,
-            String title, String content) {
+    public static Note createNote(Integer noteId, Integer ownerId, String title, String content) {
         Note note = new Note();
         note.setNoteId(noteId);
         note.setOwnerId(ownerId);
@@ -27,8 +25,13 @@ public class NoteFactory {
     public static List<Note> createListOfNotes(int nbNotes) {
         List<Note> notes = new ArrayList<Note>();
         for (int i = 0; i < nbNotes; i++) {
-            notes.add(createNote(12345, i + " - Lorem Ipsum",
-                    "Dolor sic amet nunc verbotten"));
+            final Integer userId;
+            if (i % 2 == 0) {
+                userId = 12345;
+            } else {
+                userId = 67890;
+            }
+            notes.add(createNote(userId, i + " - Lorem Ipsum", "Dolor sic amet nunc verbotten"));
         }
         return notes;
     }

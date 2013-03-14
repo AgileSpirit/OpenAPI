@@ -13,6 +13,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
@@ -20,6 +21,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.StreamingOutput;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.agile.spirit.openapi.domain.Note;
 import com.agile.spirit.openapi.domain.events.EventStore;
@@ -35,13 +39,32 @@ import com.agile.spirit.openapi.utils.PersistenceUtil;
 @Path("/notes")
 public class NotesResource {
 
+    private static Logger LOGGER = LoggerFactory.getLogger(NotesResource.class);
+
     private EntityManager em = PersistenceUtil.getEntityManager();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    public Response findNotesByOwner(@QueryParam("owner_id") Integer ownerId) {
+        // Guava Domain Event in action ^^
+        EventStore.getEventBus().post(new LoggingEvent("List notes for owner_id " + ownerId));
+
+        if (ownerId == null) {
+            LOGGER.error("note is null !");
+            return Response.status(Status.BAD_REQUEST).build();
+        }
+        List<Note> notes = Note.findByOwnerId(ownerId, em);
+        GenericEntity<List<Note>> entity = new GenericEntity<List<Note>>(notes) {
+        };
+        return Response.ok(entity).build();
+    }
+
+    @GET
+    @Path("all")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response listNotes() {
         // Guava Domain Event in action ^^
-        EventStore.getEventBus().post(new LoggingEvent("List notes"));
+        EventStore.getEventBus().post(new LoggingEvent("List all notes"));
 
         List<Note> notes = Note.list(em);
         GenericEntity<List<Note>> entity = new GenericEntity<List<Note>>(notes) {
@@ -50,11 +73,11 @@ public class NotesResource {
     }
 
     @GET
-    @Path("/export")
+    @Path("/all/export")
     @Produces({ MediaType.APPLICATION_OCTET_STREAM })
     public Response exportNotesAsPdf() {
         // Guava Domain Event in action ^^
-        EventStore.getEventBus().post(new LoggingEvent("Export notes as PDF"));
+        EventStore.getEventBus().post(new LoggingEvent("Export all notes as PDF"));
 
         final List<Note> notes = Note.list(em);
         StreamingOutput data = new StreamingOutput() {
@@ -105,7 +128,7 @@ public class NotesResource {
                 return Response.ok(persisted).build();
             }
         }
-        System.err.println("note is null !");
+        LOGGER.error("note is null !");
         return Response.status(Status.INTERNAL_SERVER_ERROR).build();
     }
 
@@ -118,7 +141,7 @@ public class NotesResource {
                 return Response.ok(merged).build();
             }
         }
-        System.err.println("note is null !");
+        LOGGER.error("note is null !");
         return Response.status(Status.INTERNAL_SERVER_ERROR).build();
     }
 

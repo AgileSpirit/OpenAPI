@@ -28,7 +28,8 @@ import org.joda.time.DateTime;
 // 2.
 @Table(name = "NOTES")
 @NamedQueries({ @NamedQuery(name = "list", query = "from Note"),
-        @NamedQuery(name = "find", query = "from Note where title like :pattern or content like :pattern") })
+        @NamedQuery(name = "find", query = "from Note where title like :pattern or content like :pattern"),
+        @NamedQuery(name = "findByOwnerId", query = "from Note where ownerId = :ownerId") })
 public class Note {
 
     @Id
@@ -110,22 +111,28 @@ public class Note {
      * REPOSITORY
      */
 
-    public static Note get(Integer noteId, EntityManager em) {
+    public static Note get(final Integer noteId, final EntityManager em) {
         Note note = em.find(Note.class, noteId);
         return note;
     }
 
-    public static List<Note> find(String pattern, EntityManager em) {
+    public static List<Note> find(final String pattern, final EntityManager em) {
         List<Note> notes = em.createNamedQuery("find", Note.class).setParameter("pattern", "%" + pattern + "%")
                 .getResultList();
         return notes;
     }
 
-    public static List<Note> list(EntityManager em) {
+    public static List<Note> findByOwnerId(final Integer ownerId, final EntityManager em) {
+        List<Note> notes = em.createNamedQuery("findByOwnerId", Note.class).setParameter("ownerId", ownerId)
+                .getResultList();
+        return notes;
+    }
+
+    public static List<Note> list(final EntityManager em) {
         return em.createNamedQuery("list", Note.class).getResultList();
     }
 
-    public static Note save(Note note, EntityManager em) {
+    public static Note save(Note note, final EntityManager em) {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
@@ -143,7 +150,7 @@ public class Note {
         return note;
     }
 
-    public static void delete(Integer noteId, EntityManager em) {
+    public static void delete(final Integer noteId, final EntityManager em) {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
