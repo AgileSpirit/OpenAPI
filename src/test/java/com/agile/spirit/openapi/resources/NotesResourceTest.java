@@ -1,4 +1,4 @@
-package com.agile.spirit.openapi;
+package com.agile.spirit.openapi.resources;
 
 import java.util.List;
 
@@ -11,6 +11,8 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.agile.spirit.openapi.domain.Note;
+import com.agile.spirit.openapi.domain.NoteFactory;
 import com.agile.spirit.openapi.utils.PersistenceUtil;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.test.framework.JerseyTest;
@@ -20,7 +22,7 @@ public class NotesResourceTest extends JerseyTest {
     private final EntityManager em;
 
     public NotesResourceTest() {
-        super("com.agile.spirit.openapi");
+        super("com.agile.spirit.openapi.resources");
         PersistenceUtil.createEntityManagerFactory();
         em = PersistenceUtil.getEntityManager();
     }

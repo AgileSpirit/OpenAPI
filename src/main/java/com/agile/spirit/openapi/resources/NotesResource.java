@@ -1,4 +1,4 @@
-package com.agile.spirit.openapi;
+package com.agile.spirit.openapi.resources;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -21,9 +21,10 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.StreamingOutput;
 
-import com.agile.spirit.openapi.events.EventStore;
-import com.agile.spirit.openapi.events.LoggingEvent;
-import com.agile.spirit.openapi.itextpdf.PdfGenerator;
+import com.agile.spirit.openapi.domain.Note;
+import com.agile.spirit.openapi.domain.events.EventStore;
+import com.agile.spirit.openapi.domain.events.LoggingEvent;
+import com.agile.spirit.openapi.utils.PdfGenerator;
 import com.agile.spirit.openapi.utils.PersistenceUtil;
 
 /*

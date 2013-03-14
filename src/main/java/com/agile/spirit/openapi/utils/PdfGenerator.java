@@ -1,9 +1,9 @@
-package com.agile.spirit.openapi.itextpdf;
+package com.agile.spirit.openapi.utils;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 
-import com.agile.spirit.openapi.Note;
+import com.agile.spirit.openapi.domain.Note;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;

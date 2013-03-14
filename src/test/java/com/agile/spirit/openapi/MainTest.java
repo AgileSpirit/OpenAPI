@@ -11,7 +11,7 @@ import com.sun.jersey.test.framework.JerseyTest;
 public class MainTest extends JerseyTest {
 
     public MainTest() throws Exception {
-        super("com.agile.spirit.openapi");
+        super("com.agile.spirit.openapi.resources");
     }
 
     /**
@@ -21,8 +21,7 @@ public class MainTest extends JerseyTest {
     @Test
     public void testApplicationWadl() {
         WebResource webResource = resource();
-        String serviceWadl = webResource.path("application.wadl")
-                .accept(MediaTypes.WADL).get(String.class);
+        String serviceWadl = webResource.path("application.wadl").accept(MediaTypes.WADL).get(String.class);
 
         assertTrue(serviceWadl.length() > 0);
     }

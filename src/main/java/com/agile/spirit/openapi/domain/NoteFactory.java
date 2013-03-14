@@ -1,4 +1,4 @@
-package com.agile.spirit.openapi;
+package com.agile.spirit.openapi.domain;
 
 import java.util.ArrayList;
 import java.util.List;

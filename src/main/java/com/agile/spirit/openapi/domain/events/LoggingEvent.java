@@ -1,4 +1,4 @@
-package com.agile.spirit.openapi.events;
+package com.agile.spirit.openapi.domain.events;
 
 import org.joda.time.DateTime;
 

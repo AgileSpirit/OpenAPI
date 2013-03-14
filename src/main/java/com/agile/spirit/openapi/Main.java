@@ -8,9 +8,13 @@ import javax.persistence.EntityManager;
 import javax.ws.rs.core.UriBuilder;
 
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.agile.spirit.openapi.events.EventStore;
-import com.agile.spirit.openapi.events.LoggingEventHandler;
+import com.agile.spirit.openapi.domain.Note;
+import com.agile.spirit.openapi.domain.NoteFactory;
+import com.agile.spirit.openapi.domain.events.EventStore;
+import com.agile.spirit.openapi.domain.events.LoggingEventHandler;
 import com.agile.spirit.openapi.utils.PersistenceUtil;
 import com.google.common.eventbus.EventBus;
 import com.sun.jersey.api.container.grizzly2.GrizzlyServerFactory;
@@ -18,6 +22,8 @@ import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.api.core.ResourceConfig;
 
 public class Main {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     private static void initializeEventStore() {
         EventBus eventBus = EventStore.getEventBus();
@@ -37,10 +43,25 @@ public class Main {
         return UriBuilder.fromUri("http://0.0.0.0/").port(port).build();
     }
 
+    private final static String RESOURCES_PACKAGES = "com.agile.spirit.openapi.resources";
+
     protected static HttpServer startServer(URI uri) throws IOException {
-        System.out.println("Starting grizzly...");
-        ResourceConfig rc = new PackagesResourceConfig("com.agile.spirit.openapi");
-        return GrizzlyServerFactory.createHttpServer(uri, rc);
+        LOGGER.info("Instances a new ResourceConfig on package " + RESOURCES_PACKAGES);
+        ResourceConfig rc = new PackagesResourceConfig(RESOURCES_PACKAGES);
+
+        // UNCOMMENT IN ORDER TO ADD LOGGING FILTER & HTTP BASIC FILTER
+        /*
+         * LOGGER.info("Adds Jersey ContainerRequestFilters");
+         * rc.getProperties().put(
+         * "com.sun.jersey.spi.container.ContainerRequestFilters",
+         * "com.sun.jersey.api.container.filter.LoggingFilter;" +
+         * AuthenticationRequestFilter.class.getCanonicalName());
+         */
+
+        LOGGER.info("Creates an HttpServer on URI " + uri);
+        HttpServer server = GrizzlyServerFactory.createHttpServer(uri, rc);
+
+        return server;
     }
 
     public static void main(String[] args) throws IOException {
@@ -53,21 +74,21 @@ public class Main {
         if (hostname == null) {
             hostname = "localhost";
         }
-        System.out.println("HOSTNAME = " + hostname);
+        LOGGER.info("HOSTNAME = " + hostname);
 
         boolean isOnLocal = false;
         String port = System.getenv("PORT");
-        System.out.println("PORT = " + port);
+        LOGGER.info("PORT = " + port);
         if (port == null) {
             isOnLocal = true;
             port = "9998";
         }
 
         URI uri = getBaseURI(hostname, Integer.valueOf(port));
-        System.out.println("URI = " + uri);
 
+        LOGGER.info("Starting grizzly...");
         HttpServer httpServer = startServer(uri);
-        System.out.println(String.format("Jersey app started with WADL available at "
+        LOGGER.info(String.format("Jersey app started with WADL available at "
                 + "%sapplication.wadl\nHit enter to stop it...", uri, uri));
         if (isOnLocal) {
             System.in.read();
