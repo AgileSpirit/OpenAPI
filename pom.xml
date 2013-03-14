@@ -165,7 +165,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>com.octo.openapi.jetty.JettyMain</mainClass>
+                    <mainClass>com.agile.spirit.openapi.Main</mainClass>
                 </configuration>
             </plugin>
             <!-- DEPENDENCY-PLUGIN is required for Heroku for embedding dependencies... -->
