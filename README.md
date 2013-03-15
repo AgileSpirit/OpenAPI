@@ -141,7 +141,10 @@ Une version de démonstration de l'API est accessible en ligne, sur Heroku : htt
 
 Une version de démonstration d'un client HTML/JS/JQuery est accessible en ligne : http://agile-spirit.fr/OpenAPI/
 
+Le code de la page HTML correspondante est accessible dans les sources : src/main/resources/html/index.html
+
 <pre><code>loadNotes();
+
 function loadNotes() {
   $.ajax({
     type: 'GET',
@@ -159,14 +162,7 @@ function renderNotes(data) {
   $('#noteList .note').remove();
   
   $.each(list, function(index, note) {
-    var noteHtml = '';
-
-    noteHtml = noteHtml.concat('<div id="note_' + index + '" class="note">').concat("\n");
-    noteHtml = noteHtml.concat('  <div class="title"><strong>' + note.title + '</strong></div>').concat("\n");
-    noteHtml = noteHtml.concat('  <div class="content">' + note.content + '</span>').concat("\n");
-    noteHtml = noteHtml.concat('</div>').concat("\n");
-      
-    $('#noteList').append(noteHtml);
+    // DISPLAY NOTE
   });
 }
 </code></pre>
