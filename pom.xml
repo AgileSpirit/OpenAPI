@@ -17,7 +17,7 @@
         <jersey.version>1.17</jersey.version>
         <joda-time.version>2.1</joda-time.version>
         <jadira.version>3.0.0.GA</jadira.version>
-        <hibernate.version>4.1.9.Final</hibernate.version>
+        <hibernate.version>4.1.10.Final</hibernate.version>
         <hsqldb.version>2.2.9</hsqldb.version>
         <slf4j.version>1.7.2</slf4j.version>
         <guava.version>12.0</guava.version>        
