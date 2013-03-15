@@ -6,5 +6,5 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapters;
 
 import org.joda.time.DateTime;
 
-import com.agile.spirit.openapi.utils.XmlDateTimeAdapter;
+import com.agile.spirit.openapi.utils.hibernate.XmlDateTimeAdapter;
 

@@ -18,12 +18,12 @@
         <joda-time.version>2.1</joda-time.version>
         <jadira.version>3.0.0.GA</jadira.version>
         <hibernate.version>4.1.9.Final</hibernate.version>
-        <!-- <h2.version>1.1.102</h2.version> -->
         <hsqldb.version>2.2.9</hsqldb.version>
         <slf4j.version>1.7.2</slf4j.version>
         <guava.version>12.0</guava.version>        
         <itextpdf.version>5.1.3</itextpdf.version>
         <xmlworker.version>1.1.1</xmlworker.version>
+        <togglz.version>1.1.0.Final</togglz.version>
     </properties>
 
     <dependencies>
@@ -84,14 +84,6 @@
             <artifactId>usertype.core</artifactId>
             <version>${jadira.version}</version>
         </dependency>
-        <!-- H2 : lightweight (in-memory-able) database -->
-        <!-- 
-        <dependency> 
-            <groupId>com.h2database</groupId> 
-            <artifactId>h2</artifactId> 
-            <version>${h2.version}</version>
-        </dependency> 
-        -->
         <!-- HSQLDB : lightweight (in-memory-able) database -->
         <dependency>
             <groupId>org.hsqldb</groupId>
@@ -127,6 +119,12 @@
           <artifactId>xmlworker</artifactId>
           <version>${xmlworker.version}</version>
           <type>jar</type>
+        </dependency>
+        <!-- TOGGLZ : library for Feature Flipping -->
+        <dependency>
+          <groupId>org.togglz</groupId>
+          <artifactId>togglz-servlet</artifactId>
+          <version>${togglz.version}</version>
         </dependency>
       </dependencies>
     <build>

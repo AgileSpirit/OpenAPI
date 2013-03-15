@@ -28,8 +28,9 @@ import org.slf4j.LoggerFactory;
 import com.agile.spirit.openapi.domain.Note;
 import com.agile.spirit.openapi.domain.events.EventStore;
 import com.agile.spirit.openapi.domain.events.LoggingEvent;
-import com.agile.spirit.openapi.utils.PdfGenerator;
-import com.agile.spirit.openapi.utils.PersistenceUtil;
+import com.agile.spirit.openapi.utils.hibernate.PersistenceUtil;
+import com.agile.spirit.openapi.utils.itextpdf.PdfGenerator;
+import com.agile.spirit.openapi.utils.togglz.TogglzFeatures;
 
 /*
  * 1. All our resources are accessible via the URL "http://localhost:9998/notes/Xxx"
@@ -76,20 +77,26 @@ public class NotesResource {
     @Path("/all/export")
     @Produces({ MediaType.APPLICATION_OCTET_STREAM })
     public Response exportNotesAsPdf() {
-        // Guava Domain Event in action ^^
-        EventStore.getEventBus().post(new LoggingEvent("Export all notes as PDF"));
+        // Togglz in action ...
+        if (TogglzFeatures.ALL_NOTES_PDF_EXPORT.isActive()) {
+            // Guava Domain Event in action ^^
+            EventStore.getEventBus().post(new LoggingEvent("Export all notes as PDF"));
 
-        final List<Note> notes = Note.list(em);
-        StreamingOutput data = new StreamingOutput() {
-            @Override
-            public void write(OutputStream output) throws IOException, WebApplicationException {
-                ByteArrayOutputStream pdfFile = PdfGenerator.generateNotesExport(notes);
-                output.write(pdfFile.toByteArray());
-            }
-        };
-        ResponseBuilder response = Response.ok(data);
-        response.header("Content-Disposition", "attachment; filename=notes-export.pdf");
-        return response.build();
+            final List<Note> notes = Note.list(em);
+            StreamingOutput data = new StreamingOutput() {
+                @Override
+                public void write(OutputStream output) throws IOException, WebApplicationException {
+                    ByteArrayOutputStream pdfFile = PdfGenerator.generateNotesExport(notes);
+                    output.write(pdfFile.toByteArray());
+                }
+            };
+            ResponseBuilder response = Response.ok(data);
+            response.header("Content-Disposition", "attachment; filename=notes-export.pdf");
+            return response.build();
+        }
+        // ... ;-)
+        return Response.ok("Feature " + TogglzFeatures.ALL_NOTES_PDF_EXPORT + " is disabled", MediaType.TEXT_PLAIN)
+                .build();
     }
 
     @GET

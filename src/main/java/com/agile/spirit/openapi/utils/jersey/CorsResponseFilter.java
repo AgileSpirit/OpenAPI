@@ -1,4 +1,4 @@
-package com.agile.spirit.openapi.utils;
+package com.agile.spirit.openapi.utils.jersey;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;

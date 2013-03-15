@@ -1,4 +1,4 @@
-package com.agile.spirit.openapi.utils;
+package com.agile.spirit.openapi.utils.hibernate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

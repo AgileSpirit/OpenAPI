@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import com.agile.spirit.openapi.domain.Note;
 import com.agile.spirit.openapi.domain.NoteFactory;
-import com.agile.spirit.openapi.utils.PersistenceUtil;
+import com.agile.spirit.openapi.utils.hibernate.PersistenceUtil;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.test.framework.JerseyTest;
 

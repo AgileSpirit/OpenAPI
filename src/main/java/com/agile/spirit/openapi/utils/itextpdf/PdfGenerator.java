@@ -1,4 +1,4 @@
-package com.agile.spirit.openapi.utils;
+package com.agile.spirit.openapi.utils.itextpdf;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
