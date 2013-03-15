@@ -139,23 +139,54 @@ Une version de démonstration est accessible en ligne, sur Heroku : http://opena
 
 ## Exemple d'appel JQuery
 
-<pre><code>function loadNotes() {
-  $.ajax({
-    type: 'GET',
-    url: 'http://openapi.herokuapp.com/notes',
-    success: function(data) {
-      renderNotes(data);
+<pre><code><!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>OpenAPI Client Sample</title>
+ </head>
+<body>
+
+    <div class="container" >
+      <div id="noteList" class="noteList">
+      </div>
+    </div>
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+
+    <script type="text/javascript">
+    
+    function loadNotes() {
+      $.ajax({
+        type: 'GET',
+        url: 'http://openapi.herokuapp.com/notes/all',
+        success: function(data) {
+          renderNotes(data);
+        }
+      });  
     }
-  });  
-}
 
-function renderNotes(data) {
-  // JAX-RS serializes an empty list as null, and a 'collection of one' as an object (not an 'array of one')
-  var list = (data == null || data.note == null) ? [] : (data.note instanceof Array ? data.note : [data.note]);
+    function renderNotes(data) {
+      // JAX-RS serializes an empty list as null, and a 'collection of one' as an object (not an 'array of one')
+      var list = (data == null || data.note == null) ? [] : (data.note instanceof Array ? data.note : [data.note]);
 
-  $('#noteList .note').remove();
-  
-  $.each(list, function(index, note) {
-    // TEMPLATE, FORMAT AND DISPLAY NOTE
-  }
-}</code></pre>
+      $('#noteList .note').remove();
+      
+      $.each(list, function(index, note) {
+        var noteHtml = '';
+
+        noteHtml = noteHtml.concat('<div id="note_' + index + '" class="note">').concat("\n");
+        noteHtml = noteHtml.concat('  <div class="title"><strong>' + note.title + '</strong></div>').concat("\n");
+        noteHtml = noteHtml.concat('  <div class="content">' + note.content + '</span>').concat("\n");
+        noteHtml = noteHtml.concat('</div>').concat("\n");
+          
+        $('#noteList').append(noteHtml);
+      });
+    }
+    
+    loadNotes();
+    
+    </script>
+</body>
+</html></code></pre>
