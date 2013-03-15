@@ -74,14 +74,16 @@ Pour arrêter l'application, dans la console Eclipse ou dans le terminal, presse
 
 Exemple d'une Note au format JSON :
 
-<pre><code>{
+```javascript
+{
   "note_id" : 12345,
   "user_id" : 67890,
   "title" : "Titre de ma note",
   "content" : "Contenu de ma note",
   "creation_date" : 1361715327,
   "modification_date" : 1361819642
-}</code></pre>
+}
+```
 
 ## Définition de l'API
 
@@ -135,7 +137,7 @@ Exemple d'une Note au format JSON :
 
 ## Exemple en ligne
 
-Une version de démonstration de l'API est accessible en ligne, sur Heroku : http://openapi.herokuapp.com/notes
+Une version de démonstration de l'API est accessible en ligne, sur Heroku : http://openapi.herokuapp.com/notes/all
 
 ## Exemple d'appel JQuery
 
@@ -143,7 +145,8 @@ Une version de démonstration d'un client HTML/JS/JQuery est accessible en ligne
 
 Le code de la page HTML correspondante est accessible dans les sources : src/main/resources/html/index.html
 
-<pre><code>loadNotes();
+```javascript
+loadNotes();
 
 function loadNotes() {
   $.ajax({
@@ -162,7 +165,14 @@ function renderNotes(data) {
   $('#noteList .note').remove();
   
   $.each(list, function(index, note) {
-    // DISPLAY NOTE
+        var noteHtml = '';
+
+        noteHtml = noteHtml.concat('<div id="note_' + index + '" class="note">').concat("\n");
+        noteHtml = noteHtml.concat('  <div class="title"><strong>' + note.title + '</strong></div>').concat("\n");
+        noteHtml = noteHtml.concat('  <div class="content">' + note.content + '</span>').concat("\n");
+        noteHtml = noteHtml.concat('</div>').concat("\n");
+  	  
+        $('#noteList').append(noteHtml);
   });
 }
-</code></pre>
+```
