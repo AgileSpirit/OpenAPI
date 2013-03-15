@@ -15,6 +15,7 @@ import com.agile.spirit.openapi.domain.Note;
 import com.agile.spirit.openapi.domain.NoteFactory;
 import com.agile.spirit.openapi.domain.events.EventStore;
 import com.agile.spirit.openapi.domain.events.LoggingEventHandler;
+import com.agile.spirit.openapi.utils.CorsResponseFilter;
 import com.agile.spirit.openapi.utils.PersistenceUtil;
 import com.google.common.eventbus.EventBus;
 import com.sun.jersey.api.container.grizzly2.GrizzlyServerFactory;
@@ -51,12 +52,16 @@ public class Main {
 
         // UNCOMMENT IN ORDER TO ADD LOGGING FILTER & HTTP BASIC FILTER
         /*
-         * LOGGER.info("Adds Jersey ContainerRequestFilters");
+         * LOGGER.info("Adds Jersey container Request filters");
          * rc.getProperties().put(
          * "com.sun.jersey.spi.container.ContainerRequestFilters",
          * "com.sun.jersey.api.container.filter.LoggingFilter;" +
          * AuthenticationRequestFilter.class.getCanonicalName());
          */
+
+        LOGGER.info("Adds Jersey container Response filters");
+        String responseFilters = "" + CorsResponseFilter.class.getCanonicalName();
+        rc.getProperties().put("com.sun.jersey.spi.container.ContainerResponseFilters", responseFilters);
 
         LOGGER.info("Creates an HttpServer on URI " + uri);
         HttpServer server = GrizzlyServerFactory.createHttpServer(uri, rc);
