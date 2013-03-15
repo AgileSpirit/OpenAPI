@@ -165,14 +165,14 @@ function renderNotes(data) {
   $('#noteList .note').remove();
   
   $.each(list, function(index, note) {
-        var noteHtml = '';
+    var noteHtml = '';
 
-        noteHtml = noteHtml.concat('<div id="note_' + index + '" class="note">').concat("\n");
-        noteHtml = noteHtml.concat('  <div class="title"><strong>' + note.title + '</strong></div>').concat("\n");
-        noteHtml = noteHtml.concat('  <div class="content">' + note.content + '</span>').concat("\n");
-        noteHtml = noteHtml.concat('</div>').concat("\n");
-  	  
-        $('#noteList').append(noteHtml);
+    noteHtml = noteHtml.concat('<div id="note_' + index + '" class="note">').concat("\n");
+    noteHtml = noteHtml.concat('  <div class="title"><strong>' + note.title + '</strong></div>').concat("\n");
+    noteHtml = noteHtml.concat('  <div class="content">' + note.content + '</span>').concat("\n");
+    noteHtml = noteHtml.concat('</div>').concat("\n");
+  	 
+    $('#noteList').append(noteHtml);
   });
 }
 ```
