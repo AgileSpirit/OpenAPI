@@ -13,6 +13,7 @@
         <downloadJavadocs>true</downloadJavadocs> 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <jdk.version>1.7</jdk.version>
         <junit.version>4.8.2</junit.version>
         <jersey.version>1.17</jersey.version>
         <joda-time.version>2.1</joda-time.version>
@@ -24,6 +25,7 @@
         <itextpdf.version>5.1.3</itextpdf.version>
         <xmlworker.version>1.1.1</xmlworker.version>
         <togglz.version>1.1.0.Final</togglz.version>
+        <lombok.version>0.11.6</lombok.version>
     </properties>
 
     <dependencies>
@@ -126,7 +128,23 @@
           <artifactId>togglz-servlet</artifactId>
           <version>${togglz.version}</version>
         </dependency>
-      </dependencies>
+        <!-- TOGGLZ : admin Console -->
+        <!-- 
+        <dependency>
+          <groupId>org.togglz</groupId>
+          <artifactId>togglz-console</artifactId>
+          <version>${togglz.version}</version>
+        </dependency>
+        -->
+        <!-- LOMBOK : Java beans getters/setters automated generation -->
+        <dependency>
+          <groupId>org.projectlombok</groupId>
+          <artifactId>lombok</artifactId>
+          <version>${lombok.version}</version>
+          <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
     <build>
         <finalName>OpenAPI</finalName>
         <plugins>
@@ -137,11 +155,11 @@
                 <version>3.0</version>
                 <inherited>true</inherited>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
                 </configuration>
             </plugin>
-            <!-- MAVEN-JETTY RUNNER -->
+            <!-- MAVEN EXEC RUNNER allows to run a Java Application, ex: "$ java package exec:run" -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -172,34 +190,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- ... but it is incompatible with M2E Eclipse Plugin, so it is disable 
-                only in this case -->
-            <!-- 
-            <plugin>
-                <groupId>org.eclipse.m2e</groupId>
-                <artifactId>lifecycle-mapping</artifactId>
-                <version>1.0.0</version>
-                <configuration>
-                    <lifecycleMappingMetadata>
-                        <pluginExecutions>
-                            <pluginExecution>
-                                <pluginExecutionFilter>
-                                    <groupId>org.apache.maven.plugins</groupId>
-                                    <artifactId>maven-dependency-plugin</artifactId>
-                                    <versionRange>[1.0.0,)</versionRange>
-                                    <goals>
-                                        <goal>copy-dependencies</goal>
-                                    </goals>
-                                </pluginExecutionFilter>
-                                <action>
-                                    <ignore />
-                                </action>
-                            </pluginExecution>
-                        </pluginExecutions>
-                    </lifecycleMappingMetadata>
-                </configuration>
-            </plugin>
-             -->
         </plugins>
     </build>
 
