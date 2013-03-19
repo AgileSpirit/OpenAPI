@@ -13,10 +13,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import lombok.Data;
-
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+
+import com.google.common.base.Objects;
 
 /*
  * 1. @XmlRootElement annotation is required because the Jersey-JSON auto-serialization is based on JAXB 
@@ -24,7 +24,6 @@ import org.joda.time.DateTime;
  * 3. @Type annotation is used for Hibernate supporting Joda DateTime type instead of basic Timestamp
  */
 
-@Data
 @XmlRootElement
 // 1.
 @Entity
@@ -57,6 +56,84 @@ public class Note {
     @Column(name = "MODIFICATION_DATE", nullable = true)
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime modificationDate;
+
+    /*
+     * OVERRIDEN
+     */
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj instanceof Note) {
+            final Note other = (Note) obj;
+            return Objects.equal(this.noteId, other.noteId) && //
+                    Objects.equal(this.ownerId, other.ownerId) && //
+                    Objects.equal(this.title, other.title) && //
+                    Objects.equal(this.content, other.content) && //
+                    Objects.equal(this.creationDate, other.creationDate) && //
+                    Objects.equal(this.modificationDate, other.modificationDate);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(noteId, ownerId, title, content, creationDate, modificationDate);
+    }
+
+    /*
+     * GETTERS / SETTERS
+     */
+
+    public Integer getNoteId() {
+        return noteId;
+    }
+
+    public void setNoteId(Integer noteId) {
+        this.noteId = noteId;
+    }
+
+    public Integer getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Integer ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public DateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(DateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public DateTime getModificationDate() {
+        return modificationDate;
+    }
+
+    public void setModificationDate(DateTime modificationDate) {
+        this.modificationDate = modificationDate;
+    }
 
     /*
      * REPOSITORY

@@ -65,7 +65,7 @@ public class Main {
 
         LOGGER.info("Creates an HttpServer on URI " + uri);
         HttpServer server = GrizzlyServerFactory.createHttpServer(uri, rc);
-        
+
         return server;
     }
 

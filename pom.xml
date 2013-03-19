@@ -25,7 +25,7 @@
         <itextpdf.version>5.1.3</itextpdf.version>
         <xmlworker.version>1.1.1</xmlworker.version>
         <togglz.version>1.1.0.Final</togglz.version>
-        <lombok.version>0.11.6</lombok.version>
+<!--         <grizzly.version>2.2.19</grizzly.version> -->
     </properties>
 
     <dependencies>
@@ -128,21 +128,24 @@
           <artifactId>togglz-servlet</artifactId>
           <version>${togglz.version}</version>
         </dependency>
-        <!-- TOGGLZ : admin Console -->
-        <!-- 
-        <dependency>
-          <groupId>org.togglz</groupId>
-          <artifactId>togglz-console</artifactId>
-          <version>${togglz.version}</version>
-        </dependency>
-        -->
-        <!-- LOMBOK : Java beans getters/setters automated generation -->
-        <dependency>
-          <groupId>org.projectlombok</groupId>
-          <artifactId>lombok</artifactId>
-          <version>${lombok.version}</version>
-          <scope>provided</scope>
-        </dependency>
+        <!-- TOGGLZ : admin Console -->         
+<!--         <dependency> -->
+<!--           <groupId>org.togglz</groupId> -->
+<!--           <artifactId>togglz-console</artifactId> -->
+<!--           <version>${togglz.version}</version> -->
+<!--         </dependency> -->
+        <!-- GRIZZLY : embedded Java server -->
+<!--         <dependency> -->
+<!--           <groupId>org.glassfish.grizzly</groupId> -->
+<!--           <artifactId>grizzly-framework</artifactId> -->
+<!--           <version>${grizzly.version}</version> -->
+<!--         </dependency> -->
+<!--         <dependency> -->
+<!--           <groupId>org.glassfish.grizzly</groupId> -->
+<!--           <artifactId>grizzly-http-server</artifactId> -->
+<!--           <version>${grizzly.version}</version> -->
+<!--         </dependency> -->
+        
     </dependencies>
 
     <build>
@@ -237,6 +240,10 @@
           <url>http://snapshots.maven.codehaus.org/maven2</url>
           <layout>default</layout>
         </repository>
-        
+        <repository>
+          <id>glassfish-maven2-repository.dev.java.net</id>
+          <name>Java.net Maven 2 Repository for GlassFish</name>
+          <url>https://maven.java.net/content/repositories/releases/</url>
+        </repository>
     </repositories>
 </project>
